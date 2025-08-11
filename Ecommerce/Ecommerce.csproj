@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- Last version compatible with .NET 6 -->
+    <!-- Versions compatible with .NET 6 -->
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="6.0.25" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.29">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
