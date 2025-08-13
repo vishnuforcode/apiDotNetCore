@@ -27,23 +27,24 @@ namespace Ecommerce.Controllers
 
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(string id)
+        public async Task<IActionResult> Get(int id)
         {
-            if (id != null)
+            var data = await _context.Users.FindAsync(id);
+            if (data != null)
             {
-                var data = await _context.Users.FindAsync(id);
+                
                 return Ok(data);
             }
             else
             {
-                return BadRequest("id not valid");
+                return BadRequest("no data");   
             }
 
         }
 
 
-        [HttpPost("register/")]
-        public async Task<IActionResult> Create(AddUserDto user)
+        [HttpPost("register")]
+        public async Task<IActionResult> Create([FromBody] AddUserDto user)
         {
             if (user != null)
             {
@@ -62,14 +63,40 @@ namespace Ecommerce.Controllers
             {
                 return BadRequest("Invalid data");
             }
+
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginUserDto user)
+        {
+            if (user != null)
+            {
+                var data = await _context.Users.FirstOrDefaultAsync(x => x.Email == user.Email && x.Password == user.Password);
+                if (data != null)
+                {
+                    return Ok("login successfully");
+                }
+                else
+                {
+                    return BadRequest("user nnot found");
+                }
+            }
+            else
+            {
+                return BadRequest("invalid credentials");
+            }
         }
 
         [HttpPut("update/{id}")]
-        public async Task<IActionResult> Update(int id, User user)
+        public async Task<IActionResult> Update(int id,[FromBody] User user)
         {
-            if (ModelState.IsValid)
+            var userExist = await _context.Users.FindAsync(id);
+            if (ModelState.IsValid && userExist!= null)
             {
-                _context.Users.Update(user);
+                userExist.FullName = user.FullName;
+                userExist.Email = user.Email;
+                userExist.Password = user.Password;
+                // _context.Users.Update(userExist);
                 await _context.SaveChangesAsync();
                 return Ok(user);
             }
@@ -83,16 +110,17 @@ namespace Ecommerce.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var data = await _context.Users.FindAsync(id);
-            if (data != null)
+
+            if (data == null)
             {
-                _context.Users.Remove(data);
+                return BadRequest();
+
+            }
+             _context.Users.Remove(data);
                 await _context.SaveChangesAsync();
-                return Ok("user deleted");
-            }
-            else
-            {
-                return BadRequest("Invalid id");
-            }
+                return Ok();
+            
+        
         }
     }
 

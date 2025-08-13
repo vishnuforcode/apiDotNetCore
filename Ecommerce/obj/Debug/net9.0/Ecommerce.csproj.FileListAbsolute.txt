@@ -101,3 +101,4 @@ C:\Users\Tejpal Singh\Desktop\api\Ecommerce\obj\Debug\net9.0\ref\Ecommerce.dll
 C:\Users\Tejpal Singh\Desktop\api\Ecommerce\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\Tejpal Singh\Desktop\api\Ecommerce\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\Tejpal Singh\Desktop\api\Ecommerce\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\Tejpal Singh\Desktop\api\Ecommerce\obj\Debug\net9.0\Ecommerce.sourcelink.json
